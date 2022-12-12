@@ -17,5 +17,9 @@ namespace budnar_pavel_lab2.Data
         public DbSet<budnar_pavel_lab2.Models.Book> Book { get; set; } = default!;
 
         public DbSet<budnar_pavel_lab2.Models.Publisher> Publisher { get; set; }
+
+        public DbSet<budnar_pavel_lab2.Models.BookCategory> BookCategory { get; set; }
+
+        public DbSet<budnar_pavel_lab2.Models.Category> Category { get; set; }
     }
 }

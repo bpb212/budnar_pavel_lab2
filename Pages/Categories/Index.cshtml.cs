@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using budnar_pavel_lab2.Data;
 using budnar_pavel_lab2.Models;
 
-namespace budnar_pavel_lab2.Pages.Books
+namespace budnar_pavel_lab2.Pages.Categories
 {
     public class IndexModel : PageModel
     {
@@ -13,13 +19,13 @@ namespace budnar_pavel_lab2.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Category> Category { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Book != null)
+            if (_context.Category != null)
             {
-                Book = await _context.Book.Include(b => b.Publisher).ToListAsync();
+                Category = await _context.Category.ToListAsync();
             }
         }
     }
