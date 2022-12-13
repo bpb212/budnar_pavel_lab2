@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 
 namespace budnar_pavel_lab2.Models
@@ -7,9 +8,13 @@ namespace budnar_pavel_lab2.Models
     public class Book
     {
         public int ID { get; set; }
+
+        [Required, StringLength(150, MinimumLength = 3)]
         [Display(Name = "Book Title")]
         public string Title { get; set; }
-        public string Author { get; set; }
+        public int AuthorID { get; set; }
+        public Author? Author { get; set; }
+        [Range(1, 300)]
         [Column(TypeName = "decimal(6,2)")]
         public decimal Price { get; set; }
         [DataType(DataType.Date)]

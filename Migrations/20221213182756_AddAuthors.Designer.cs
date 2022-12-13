@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using budnar_pavel_lab2.Data;
 
@@ -11,9 +12,10 @@ using budnar_pavel_lab2.Data;
 namespace budnar_pavel_lab2.Migrations
 {
     [DbContext(typeof(budnar_pavel_lab2Context))]
-    partial class budnar_pavel_lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20221213182756_AddAuthors")]
+    partial class AddAuthors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,8 +53,10 @@ namespace budnar_pavel_lab2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<int>("AuthorID")
-                        .HasColumnType("int");
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
@@ -69,8 +73,6 @@ namespace budnar_pavel_lab2.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AuthorID");
 
                     b.HasIndex("PublisherID");
 
@@ -136,19 +138,11 @@ namespace budnar_pavel_lab2.Migrations
 
             modelBuilder.Entity("budnar_pavel_lab2.Models.Book", b =>
                 {
-                    b.HasOne("budnar_pavel_lab2.Models.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("budnar_pavel_lab2.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Author");
 
                     b.Navigation("Publisher");
                 });
