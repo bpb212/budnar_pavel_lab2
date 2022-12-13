@@ -36,9 +36,18 @@ namespace budnar_pavel_lab2.Pages.Books
             {
                 return NotFound();
             }
-            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
+
+            var publisher = await _context.Publisher.FirstOrDefaultAsync(m => m.ID == book.PublisherID);
+            if (publisher == null)
+            {
+                return NotFound();
+            }
+
+            book.Publisher = publisher;
 
             Book = book;
+            ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
+
             return Page();
         }
 
