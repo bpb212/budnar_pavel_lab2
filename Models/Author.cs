@@ -13,5 +13,13 @@ namespace budnar_pavel_lab2.Models
         public string FirstName { get; set; }
         [RegularExpression(@"^[A-Z][a-z]+")]
         public string LastName { get; set; }
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
     }
 }
